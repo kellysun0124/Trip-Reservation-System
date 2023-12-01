@@ -11,17 +11,32 @@ app.config['SECRET_KEY'] = 'your secret key'
 #flash the secret key to secure sessions
 app.config['SECRET KEY'] = 'your secret key'
 
-#function to open a connection to the database.dc file
-def get_db_connection():
-    #get database connection
-    conn = sqlite3.connect('database.db')
+#get info from data_files
+    # try:
+    #     passcodesFile = open("data_files/passcodes.txt", "r")  
+    #     reservationsFile = open("data_files/reservations.txt", "r")  
+    # except:
+    #     print("file does not exsist") 
+    # passcodesFile.close()
+    # reservationsFile.close()
 
-    #allow us to have name based access to columns
-    #db connection will return rows we can access like python dictionary
-    conn.row_factory = sqlite3.Row
+#append info to data_files / ..txt
+def data_files_write(filename, content):
+    try:
+        passcodesFile = open("data_files/passcodes.txt", "a")  
+        reservationsFile = open("data_files/reservations.txt", "a")  
+    except:
+        print("file does not exsist")
+    if filename == "passcodes":
+        passcodesFile.write(f"{content}\n")
+    elif filename == "reservations":
+        reservationsFile.write(f"{content}\n")
+    else:
+        print("filename should be passcodes or reservations")
+    passcodesFile.close()
+    reservationsFile.close()
 
-    #return connection object
-    return conn
+    
 
 
 #function to get a post
