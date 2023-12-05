@@ -55,12 +55,26 @@ def get_reservations():
 
     return reservations
 
-# the below is just a templete and need to be change to fit
 # use the app.route() decorator to create a Flask view function called index()
-@app.route('/')
+@app.route('/', methods=('GET', 'POST'))
 def home():
-    
-    return render_template('home.html')
+    menu_option = ['login', 'reserve']
+
+    if request.method == "POST":
+        option = request.form['option']
+
+        if not option:
+            flash("must select menu option")
+
+    # if option == 'login':
+    #     #redirect to login 
+            #return redirect("login.html", code=302)
+    # if option == 'reserve':
+    #     #redirect to reserve
+            #return redirect("reserve.html", code=302)
+
+
+    return render_template('home.html', menu_option=menu_option)
 
 # @app.route('/create/', methods=('GET', 'POST'))
 # def create():

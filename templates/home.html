@@ -4,12 +4,14 @@
     <h1>{% block title %} Trip Reservation System {% endblock %} </h1>
     <p>Welcome to the IT-4320 reservation system.  use the select box to choose whether to make a reservation or log in as administrator.</p>
     <form method="post">
-        <label for="menu_option">Choose Menu Option</label>
-        <select name="menu_option", id="menu_option">
-            <option value="reserve">Reserve a Seat</option>
-            <option value="login">Admin Login</option>
+        <label for="option">Choose Menu Option</label>
+        <select name="option", id="option">
+            {% for option in menu_option %}
+            <option value="{{ option }}">{{ option }}</option>
+            {% endfor %}
         </select>
         <br>
+        
         <button type="submit">Submit</button>
         
     </form>
