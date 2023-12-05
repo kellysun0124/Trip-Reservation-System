@@ -1,25 +1,16 @@
 #this file is just for testing stuff
 
 
-def data_files_write(filename, content):
+def get_passcode():
+    reservations = []
     try:
-        passcodesFile = open("data_files/passcodes.txt", "a")  
-        reservationsFile = open("data_files/reservations.txt", "a")  
+        reservationsFile = open("data_files/reservations.txt")  
+        for line in reservationsFile:
+            reservations.append(line.removesuffix('\n'))
     except:
-        print("file does not exsist")
-    if filename == "passcodes":
-        passcodesFile.write(f"{content}\n")
-    elif filename == "reservations":
-        reservationsFile.write(f"{content}\n")
-    else:
-        print("filename should be passcodes or reservations")
-    passcodesFile.close()
+        print("file does not exsist") 
     reservationsFile.close()
 
-data_files_write("passcodes", "whats, up")
+    return reservations
 
-# passfile, reserv = get_files_read()
-
-# for line in passfile:
-#     print(line)
-# print(reserv)
+print(get_passcode())

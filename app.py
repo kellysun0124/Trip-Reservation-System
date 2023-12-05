@@ -11,15 +11,6 @@ app.config['SECRET_KEY'] = 'your secret key'
 #flash the secret key to secure sessions
 app.config['SECRET KEY'] = 'your secret key'
 
-#get info from data_files
-    # try:
-    #     passcodesFile = open("data_files/passcodes.txt", "r")  
-    #     reservationsFile = open("data_files/reservations.txt", "r")  
-    # except:
-    #     print("file does not exsist") 
-    # passcodesFile.close()
-    # reservationsFile.close()
-
 #append info to data_files / ..txt
 def data_files_write(filename, content):
     try:
@@ -36,22 +27,33 @@ def data_files_write(filename, content):
     passcodesFile.close()
     reservationsFile.close()
 
-    
+
+#function to get a list of passcodes
+def get_passcodes():
+    passcodes = []
+    try:
+        passcodesFile = open("data_files/passcodes.txt")
+        for line in passcodesFile:
+            passcodes.append(line.removesuffix('\n'))
+    except:
+        print("file does not exsist") 
+    passcodesFile.close()
+
+    return passcodes
 
 
-#function to get a post
-def get_post(post_id):
-    #get db connection
-    conn = get_db_connection()
-    edit_query = 'SELECT * FROM posts WHERE id = ?'
-    post = conn.execute(edit_query, (post_id,)).fetchone()
-    conn.close()
+#function to get a list of passcodes
+def get_reservations():
+    reservations = []
+    try:
+        reservationsFile = open("data_files/reservations.txt")  
+        for line in reservationsFile:
+            reservations.append(line.removesuffix('\n'))
+    except:
+        print("file does not exsist") 
+    reservationsFile.close()
 
-    #if something goes wrong, abort with 404
-    if post is None:
-            abort(404)
-
-    return post
+    return reservations
 
 
 # use the app.route() decorator to create a Flask view function called index()
