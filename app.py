@@ -55,100 +55,89 @@ def get_reservations():
 
     return reservations
 
-
+# the below is just a templete and need to be change to fit
 # use the app.route() decorator to create a Flask view function called index()
 @app.route('/')
-def index():
+def home():
     
-    #get database connection
-    conn = get_db_connection()
+    return render_template('home.html')
 
-    #execute a query to get all posts from the database
-    #use fetchall() to get all rows from query result
-    query = 'SELECT * FROM posts'
-    posts = conn.execute(query).fetchall()
+# @app.route('/create/', methods=('GET', 'POST'))
+# def create():
 
-    #close the connection
-    conn.close()
+#     if request.method == "POST":
+#         #get title and content submitted by user
+#         title = request.form['title']
+#         content = request.form['content']    
+
+#         #display error if not submitted
+#         #otherwise make a database connection and insert the post
+#         if not title:
+#             flash('Title is required')
+#         elif not content:
+#             flash('Content is required')
+#         else:
+#             conn = get_db_connection()
+#             insert_query = 'INSERT INTO posts (title, content) VALUES (?, ?)'
+#             conn.execute(insert_query, (title, content))
+#             conn.commit()
+#             conn.close()
+#             #redirect to index page when successfully submitted
+#             return redirect(url_for('index'))
+
+#     return render_template('create.html')
+
+# #route to edit post
+# @app.route('/<int:id>/edit/', methods=('GET', 'POST'))
+# def edit(id):
+#     #get id from get_post()
+#     post = get_post(id)
+
+#     if request.method == "POST":
+#         #get title and content submitted by user
+#         title = request.form['title']
+#         content = request.form['content']    
+
+#         #display error if not submitted
+#         #otherwise make a database connection and insert the post
+#         if not title:
+#             flash('Title is required')
+#         elif not content:
+#             flash('Content is required')
+#         else:
+#             conn = get_db_connection()
+#             update_query = 'UPDATE posts SET title = ?, content = ? WHERE id = ?'
+#             conn.execute(update_query, (title, content, id))
+#             conn.commit()
+#             conn.close()
+#             #redirect to index page when successfully submitted
+#             return redirect(url_for('index'))
+
+#     return render_template('edit.html', post=post)
+
+
+# # route to delete a post
+# @app.route('/<int:id>/delete/', methods=('POST',))
+# def delete(id):
+#     #get the post
+#     post = get_post(id)
+
+#     #connect to databse
+#     conn = get_db_connection()
+
+#     #run a delete query
+#     delete_query = 'DELETE FROM posts WHERE id = ?'
+#     conn.execute(delete_query, (id,))
+
+#     #commit changes and close connection to databse
+#     conn.commit()
+#     conn.close()
+
+#     #show sucess message if deleted
+#     flash('{} has been deleted'.format(post['title']))
     
-    return render_template('index.html', posts=posts)
-
-@app.route('/create/', methods=('GET', 'POST'))
-def create():
-
-    if request.method == "POST":
-        #get title and content submitted by user
-        title = request.form['title']
-        content = request.form['content']    
-
-        #display error if not submitted
-        #otherwise make a database connection and insert the post
-        if not title:
-            flash('Title is required')
-        elif not content:
-            flash('Content is required')
-        else:
-            conn = get_db_connection()
-            insert_query = 'INSERT INTO posts (title, content) VALUES (?, ?)'
-            conn.execute(insert_query, (title, content))
-            conn.commit()
-            conn.close()
-            #redirect to index page when successfully submitted
-            return redirect(url_for('index'))
-
-    return render_template('create.html')
-
-#route to edit post
-@app.route('/<int:id>/edit/', methods=('GET', 'POST'))
-def edit(id):
-    #get id from get_post()
-    post = get_post(id)
-
-    if request.method == "POST":
-        #get title and content submitted by user
-        title = request.form['title']
-        content = request.form['content']    
-
-        #display error if not submitted
-        #otherwise make a database connection and insert the post
-        if not title:
-            flash('Title is required')
-        elif not content:
-            flash('Content is required')
-        else:
-            conn = get_db_connection()
-            update_query = 'UPDATE posts SET title = ?, content = ? WHERE id = ?'
-            conn.execute(update_query, (title, content, id))
-            conn.commit()
-            conn.close()
-            #redirect to index page when successfully submitted
-            return redirect(url_for('index'))
-
-    return render_template('edit.html', post=post)
+#     #redirect to index page
+#     return  redirect(url_for('index'))
 
 
-# route to delete a post
-@app.route('/<int:id>/delete/', methods=('POST',))
-def delete(id):
-    #get the post
-    post = get_post(id)
-
-    #connect to databse
-    conn = get_db_connection()
-
-    #run a delete query
-    delete_query = 'DELETE FROM posts WHERE id = ?'
-    conn.execute(delete_query, (id,))
-
-    #commit changes and close connection to databse
-    conn.commit()
-    conn.close()
-
-    #show sucess message if deleted
-    flash('{} has been deleted'.format(post['title']))
-    
-    #redirect to index page
-    return  redirect(url_for('index'))
-
-
-app.run(host="0.0.0.0", port=5001)
+app.run(host="0.0.0.0", port=5002)
