@@ -1,50 +1,29 @@
-<!-- reserve.html -->
-{% extends 'base.html' %} {% block title %}Seat Reserved{% endblock %} {% block
+{% extends 'base.html' %} {% block title %}Reserve a Seat{% endblock %} {% block
 content %}
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<title>Bus Reservation System</title>
-		<link rel="stylesheet" href="styles.css" />
-	</head>
-	<body>
-		<div class="container">
-			<h2>Bus Seat Reservation</h2>
-			<!-- Seat Reservation Form -->
-			<form action="/reserve_seat" method="post">
-				<label for="firstName">First Name:</label>
-				<input type="text" id="firstName" name="firstName" required />
 
-				<label for="lastName">Last Name:</label>
-				<input type="text" id="lastName" name="lastName" required />
+<h1>Reserve a Seat</h1>
+<form method="post" action="/reserve_seat">
+	<label for="firstName">First Name:</label>
+	<input type="text" id="firstName" name="firstName" required />
 
-				<label for="seatRow">Seat Row:</label>
-				<select id="seatRow" name="seatRow" required>
-					<!-- Options for seat rows -->
-				</select>
+	<label for="lastName">Last Name:</label>
+	<input type="text" id="lastName" name="lastName" required />
 
-				<label for="seatColumn">Seat Column:</label>
-				<select id="seatColumn" name="seatColumn" required>
-					<!-- Options for seat columns -->
-				</select>
+	<label for="seatRow">Seat Row:</label>
+	<select id="seatRow" name="seatRow" required>
+		{% for row in range(1, 13) %}
+		<option value="{{ row }}">{{ row }}</option>
+		{% endfor %}
+	</select>
 
-				<button type="submit">Reserve Seat</button>
-			</form>
+	<label for="seatColumn">Seat Column:</label>
+	<select id="seatColumn" name="seatColumn" required>
+		{% for column in ['A', 'B', 'C', 'D'] %}
+		<option value="{{ column }}">{{ column }}</option>
+		{% endfor %}
+	</select>
 
-			<h2>Admin Login</h2>
-			<!-- Admin Login Form -->
-			<form action="/admin_login" method="post">
-				<label for="username">Admin Username:</label>
-				<input type="text" id="username" name="username" required />
-
-				<label for="password">Admin Password:</label>
-				<input type="password" id="password" name="password" required />
-
-				<button type="submit">Login</button>
-			</form>
-		</div>
-	</body>
-</html>
-
+	<button type="submit">Reserve</button>
+</form>
+<a href="{{ url_for('home') }}">Back to Main Menu</a>
 {% endblock %}
