@@ -1,0 +1,38 @@
+<!-- reserve.html -->
+{% extends 'base.html' %} {% block title %}Seat Reserved{% endblock %} {% block
+content %}
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<title>Bus Reservation System</title>
+		<link rel="stylesheet" href="styles.css" />
+	</head>
+	<body>
+		<div class="container">
+			<h2>Bus Seat Reservation</h2>
+			<!-- Seat Reservation Form -->
+			<form action="/reserve_seat" method="post">
+				<label for="firstName">First Name:</label>
+				<input type="text" id="firstName" name="firstName" required />
+
+				<label for="lastName">Last Name:</label>
+				<input type="text" id="lastName" name="lastName" required />
+
+				<label for="seatRow">Seat Row:</label>
+				<select id="seatRow" name="seatRow" required>
+					<!-- Options for seat rows -->
+				</select>
+
+				<label for="seatColumn">Seat Column:</label>
+				<select id="seatColumn" name="seatColumn" required>
+					<!-- Options for seat columns -->
+				</select>
+
+				<button type="submit">Reserve Seat</button>
+			</form>
+		</div>
+	</body>
+</html>
+
+{% endblock %}
