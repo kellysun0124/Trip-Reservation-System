@@ -3,7 +3,7 @@
 {% block content %}
     <h1>{% block title %} Trip Reservation System {% endblock %} </h1>
     <p>Welcome to the IT-4320 reservation system.  use the select box to choose whether to make a reservation or log in as administrator.</p>
-    <form method="post">
+    <form method="post" action="{{ url_for('render_admin_login') }}">
         <label for="menu_option">Choose Menu Option</label>
         <select name="menu_option", id="menu_option">
             <option value="reserve">Reserve a Seat</option>
