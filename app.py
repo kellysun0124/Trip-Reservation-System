@@ -131,7 +131,7 @@ def admin_dashboard():
 
     return render_template('admin-dashboard.html')
 
-#Below is justy a template and might need to be modified to work.
+#Below is just a template and might need to be modified to work.
 # @app.route('/create/', methods=('GET', 'POST'))
 # def create():
 
