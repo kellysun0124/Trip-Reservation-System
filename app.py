@@ -62,6 +62,22 @@ def home():
     
     return render_template('home.html')
 
+@app.route('/handle-menu-option', methods=['POST'])
+def handle_menu_option():
+    menu_option = request.form.get('menu_option')
+
+    if menu_option == 'reserve':
+        # Add reservation logic here (e.g., call a function to handle the reservation)
+
+        # Render the reserve.html template
+        return render_template('reserve.html')
+
+    elif menu_option == 'login':
+        # Redirect to the admin login page
+        return redirect(url_for('render_admin_login'))
+
+    abort(400)  # Bad request if the menu_option is neither 'reserve' nor 'login'
+
 # Route to render the admin login form
 @app.route('/admin-login', methods=['GET'])
 def render_admin_login():
