@@ -55,7 +55,7 @@ def get_reservations():
 
     return reservations
 
-# the below is just a templete and need to be change to fit
+
 # use the app.route() decorator to create a Flask view function called index()
 @app.route('/')
 def home():
@@ -92,7 +92,7 @@ def handle_admin_login():
 # Function to read admin credentials from passcodes.txt
 def read_admin_credentials():
     admin_credentials = []
-
+    #match admin credentials to the passcodes.txt file
     try:
         with open("data_files/passcodes.txt", "r") as passcodes_file:
             for line in passcodes_file:
@@ -115,6 +115,7 @@ def admin_dashboard():
 
     return render_template('admin-dashboard.html')
 
+#Below is justy a template and might need to be modified to work.
 # @app.route('/create/', methods=('GET', 'POST'))
 # def create():
 
