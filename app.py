@@ -1,5 +1,5 @@
 import sqlite3
-from flask import Flask, render_template, request, url_for, flash, redirect, abort
+from flask import Flask, render_template, request, url_for, flash, redirect, abort, session
 
 # make a Flask application object called app
 app = Flask(__name__)
@@ -61,6 +61,59 @@ def get_reservations():
 def home():
     
     return render_template('home.html')
+
+# Route to render the admin login form
+@app.route('/admin-login', methods=['GET'])
+def render_admin_login():
+    return render_template('admin-login.html')
+
+# Route to handle admin login form submission
+@app.route('/admin-login', methods=['POST'])
+def handle_admin_login():
+    username = request.form.get('username')
+    password = request.form.get('password')
+
+    # Read admin credentials from the passcodes.txt file
+    admin_credentials = read_admin_credentials()
+
+    # Check if the provided credentials match any admin account
+    if (username, password) in admin_credentials:
+        session['admin_logged_in'] = True
+        flash('Admin login successful', 'success')
+        return redirect(url_for('admin_dashboard'))
+    else:
+        flash('Invalid credentials. Please try again.', 'error')
+
+    # Manually pop flashed messages from the session
+    session.pop('_flashes', None)
+
+    return redirect(url_for('render_admin_login'))
+
+# Function to read admin credentials from passcodes.txt
+def read_admin_credentials():
+    admin_credentials = []
+
+    try:
+        with open("data_files/passcodes.txt", "r") as passcodes_file:
+            for line in passcodes_file:
+                username, password = map(str.strip, line.split(','))
+                admin_credentials.append((username, password))
+    except FileNotFoundError:
+        print("passcodes.txt not found")
+
+    return admin_credentials
+
+# Route for the admin dashboard
+@app.route('/admin-dashboard')
+def admin_dashboard():
+    # Check if the admin is logged in
+    if not session.get('admin_logged_in'):
+        # Redirect to the admin login page if not logged in
+        flash('Please log in as admin first.', 'error')
+        return redirect(url_for('admin_login'))
+
+
+    return render_template('admin-dashboard.html')
 
 # @app.route('/create/', methods=('GET', 'POST'))
 # def create():
