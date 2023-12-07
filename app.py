@@ -74,7 +74,7 @@ def handle_menu_option():
 
     elif menu_option == 'login':
         # Redirect to the admin login page
-        return redirect(url_for('admin_login'))
+        return redirect(url_for('render_admin_login'))
 
     abort(400)  # Bad request if the menu_option is neither 'reserve' nor 'login'
 
