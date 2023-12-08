@@ -1,26 +1,19 @@
-# Function to read admin credentials from passcodes.txt
-def read_admin_credentials():
-    admin_credentials = []
-    #match admin credentials to the passcodes.txt file
+# Function to read admin credentials from passcodes.txt and validate them
+def validate_admin_credentials(username, password):
     try:
-        with open("data_files/passcodes.txt", "r") as passcodes_file:
-            for line in passcodes_file:
-                username, password = map(str.strip, line.split(','))
-                admin_credentials.append((username, password))
+        # Open the passcodes.txt file to read stored admin credentials
+        with open("data_files/passcodes.txt", "r") as file:
+            for line in file:
+                # Split each line into stored username and password, and strip whitespace
+                stored_username, stored_password = [item.strip() for item in line.split(',')]
+                # Check if the provided credentials match the stored credentials
+                if stored_username == username and stored_password == password:
+                    return True  # Return True if credentials are valid
     except FileNotFoundError:
-        print("passcodes.txt not found")
-
-    return admin_credentials
-
-#function to get a list of passcodes
-def get_passcodes():
-    passcodes = []
-    try:
-        passcodesFile = open("data_files/passcodes.txt")
-        for line in passcodesFile:
-            passcodes.append(line.removesuffix('\n'))
-    except:
-        print("file does not exsist") 
-    passcodesFile.close()
-
-    return passcodes
+        # Print an error message if passcodes.txt is not found
+        print("passcodes.txt file not found.")
+    except Exception as e:
+        # Print any other exceptions that occur
+        print(f"An error occurred: {e}")
+    # Return False if credentials are not valid or an error occurs
+    return False
