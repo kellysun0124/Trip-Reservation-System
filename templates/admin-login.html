@@ -1,24 +1,37 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} {% block title %}Admin Login{% endblock %} {% block
+content %}
+<h1>Admin Login</h1>
 
-{% block title %}Admin Login{% endblock %}
+{% with messages = get_flashed_messages(with_categories=True) %} {% for
+category, message in messages %}
+<div class="alert">{{ message }}</div>
+{% endfor %} {% endwith %}
 
-{% block content %}
-    <h1>Admin Login</h1>
-    
-    {% with messages = get_flashed_messages(with_categories=True) %}
-        {% for category, message in messages %}
-            <div class="alert">{{ message }}</div>
-        {% endfor %}
-    {% endwith %}
-
-    <form method="post" action="{{ url_for('handle_admin_login') }}">
-        <!-- Add your admin login form fields here -->
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required>
-        <br>
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
-        <br>
-        <button type="submit">Login</button>
-    </form>
+<form
+	method="post"
+	action="{{ url_for('handle_admin_login') }}"
+	style="max-width: 300px; margin: auto"
+>
+	<div class="form-group">
+		<label for="username">Username:</label>
+		<input
+			type="text"
+			id="username"
+			name="username"
+			class="form-control"
+			required
+		/>
+	</div>
+	<div class="form-group">
+		<label for="password">Password:</label>
+		<input
+			type="password"
+			id="password"
+			name="password"
+			class="form-control"
+			required
+		/>
+	</div>
+	<button type="submit" class="btn">Login</button>
+</form>
 {% endblock %}

@@ -1,15 +1,23 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} {% block title %}Admin Dashboard{% endblock %} {%
+block content %}
+<h1>Admin Dashboard</h1>
 
-{% block title %}Admin Dashboard{% endblock %}
+{% with messages = get_flashed_messages(with_categories=True) %} {% for
+category, message in messages %}
+<div class="alert">{{ message }}</div>
+{% endfor %} {% endwith %}
 
-{% block content %}
-    <h1>Admin Dashboard</h1>
-
-    {% with messages = get_flashed_messages(with_categories=True) %}
-        {% for category, message in messages %}
-            <div class="alert">{{ message }}</div>
-        {% endfor %}
-    {% endwith %}
-
-    <p>Welcome to the Admin Dashboard! Add your content here.</p>
+<div class="dashboard-section">
+	<p>Welcome to the Admin Dashboard!</p>
+	<!-- Add additional dashboard content here -->
+	<div>
+		<h2>Total Sales</h2>
+		<!-- Placeholder for total sales -->
+	</div>
+	<div>
+		<h2>Reservations</h2>
+		<!-- Placeholder for reservation management -->
+	</div>
+	<!-- Additional administrative functionalities can be added here -->
+</div>
 {% endblock %}
