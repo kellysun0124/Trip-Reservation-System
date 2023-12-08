@@ -66,7 +66,3 @@ Contributions to this project are welcome. Please follow these steps:
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
-
-## Contact
-
-For any queries or contributions, please contact me at [your-email@example.com](mailto:your-email@example.com).
