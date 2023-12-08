@@ -1,16 +1,39 @@
 {% extends 'base.html' %}
+<!-- Inherits a base layout from 'base.html', ensuring consistency across pages -->
+
+{% block title %}Trip Reservation System{% endblock %}
+<!-- Sets the page title to 'Trip Reservation System' -->
 
 {% block content %}
-    <h1>{% block title %} Trip Reservation System {% endblock %}</h1>
-    <p>Welcome to the IT-4320 reservation system. Use the select box to choose whether to make a reservation or log in as an administrator.</p>
-    <form method="post" action="{{ url_for('handle_menu_option') }}">
-        <label for="menu_option">Choose Menu Option</label>
-        <select name="menu_option" id="menu_option">
-            {% for option in menu_option %}
-                <option value="{{ option }}">{{ option }}</option>
-            {% endfor %}
-        </select>
-        <br>
-        <button type="submit">Submit</button>
-    </form>
+<!-- Begins the content section of the page -->
+
+<h1>Trip Reservation System</h1>
+<!-- Displays the main heading for the page -->
+
+<p>
+	Welcome to the IT-4320 Final: reservation system. Use the select box to choose
+	whether to make a reservation or log in as an administrator.
+</p>
+<!-- Provides a brief introduction or welcome message -->
+
+<form method="post" action="{{ url_for('handle_menu_option') }}">
+	<!-- Creates a form that sends a POST request to the 'handle_menu_option' route -->
+
+	<label for="menu_option">Choose Menu Option</label>
+	<!-- Label for the dropdown select box -->
+
+	<select name="menu_option" id="menu_option">
+		<!-- Dropdown select box allowing users to choose an option -->
+		<option value="reserve">Reserve a Seat</option>
+		<!-- Option to reserve a seat -->
+		<option value="login">Admin Login</option>
+		<!-- Option for admin login -->
+	</select>
+	<br />
+
+	<button type="submit">Submit</button>
+	<!-- Button to submit the form -->
+</form>
+
 {% endblock %}
+<!-- Ends the content section -->

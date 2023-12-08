@@ -2,34 +2,83 @@
 <html lang="en">
 	<head>
 		{% extends "base.html" %} {% block title %}Reserve a Seat{% endblock %}
+		<style>
+			/* Add custom styles here */
+			.seat {
+				padding: 5px;
+				margin: 2px;
+				border: 1px solid #ccc;
+				text-align: center;
+			}
+			.reserved {
+				background-color: #f88;
+			}
+			.available {
+				background-color: #8f8;
+			}
+			/* Responsive table */
+			table {
+				width: 100%;
+			}
+		</style>
 	</head>
 	<body>
 		{% block content %}
-		<h1>Reserve a Seat</h1>
+		<div class="reservation-message">{{ message }}</div>
 
+		<h1>Seating Chart</h1>
+		<table>
+			<tr>
+				<th></th>
+				<!-- Empty cell for the top-left corner of the table -->
+				{% for col in range(1, 5) %}
+				<!-- Assuming 4 columns -->
+				<th>Column {{ col }}</th>
+				{% endfor %}
+			</tr>
+			{% for row_num, row in seating_chart %}
+			<tr>
+				<th>Row {{ row_num }}</th>
+				<!-- Row label -->
+				{% for seat in row %}
+				<td class="{{ 'reserved' if seat == 'Reserved' else 'available' }}">
+					{{ seat }}
+				</td>
+				{% endfor %}
+			</tr>
+			{% endfor %}
+		</table>
+
+		<h1>Reserve a Seat</h1>
 		<!-- Reservation Form -->
 		<form action="/reserve_seat" method="post">
 			<label for="firstName">First Name:</label>
-			<input type="text" id="firstName" name="firstName" /><br /><br />
+			<input type="text" id="firstName" name="firstName" required /><br /><br />
 
 			<label for="lastName">Last Name:</label>
-			<input type="text" id="lastName" name="lastName" /><br /><br />
+			<input type="text" id="lastName" name="lastName" required /><br /><br />
 
 			<!-- Seat Row Selection -->
 			<label for="seatRow">Seat Row:</label>
-			<select id="seatRow" name="seatRow">
-				{% for row in range(1, 13) %}
-				<option value="{{ row }}">{{ row }}</option>
-				{% endfor %}</select
-			><br /><br />
+			<input
+				type="number"
+				id="seatRow"
+				name="seatRow"
+				min="1"
+				max="12"
+				required
+			/><br /><br />
 
 			<!-- Seat Column Selection -->
 			<label for="seatColumn">Seat Column:</label>
-			<select id="seatColumn" name="seatColumn">
-				{% for col in ['A', 'B', 'C', 'D'] %}
-				<option value="{{ col }}">{{ col }}</option>
-				{% endfor %}</select
-			><br /><br />
+			<input
+				type="number"
+				id="seatColumn"
+				name="seatColumn"
+				min="1"
+				max="4"
+				required
+			/><br /><br />
 
 			<input type="submit" value="Reserve Seat" />
 		</form>

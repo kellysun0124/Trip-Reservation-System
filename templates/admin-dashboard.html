@@ -1,15 +1,53 @@
 {% extends 'base.html' %}
+<!-- Inherit from a base template, allowing reuse of a common layout -->
 
 {% block title %}Admin Dashboard{% endblock %}
+<!-- Set the title of the page to 'Admin Dashboard' -->
 
 {% block content %}
-    <h1>Admin Dashboard</h1>
+<!-- Start of the content block, where page-specific content will be placed -->
 
-    {% with messages = get_flashed_messages(with_categories=True) %}
-        {% for category, message in messages %}
-            <div class="alert">{{ message }}</div>
-        {% endfor %}
-    {% endwith %}
+<h1>Admin Dashboard</h1>
+<!-- Heading for the admin dashboard -->
 
-    <p>Welcome to the Admin Dashboard! Add your content here.</p>
+<h1>Seating Chart</h1>
+<!-- Heading for the seating chart section -->
+
+<table>
+	<tr>
+		<th></th>
+		<!-- Create an empty header cell for the top-left corner of the table -->
+
+		{% for col in range(1, 5) %}
+		<!-- Loop through columns (1 to 4) to create column headers -->
+		<th>Column {{ col }}</th>
+		{% endfor %}
+	</tr>
+
+	{% for row_num, row in seating_chart %}
+	<!-- Loop through each row in the seating_chart variable -->
+	<tr>
+		<th>Row {{ row_num }}</th>
+		<!-- Create a header cell for each row number -->
+
+		{% for seat in row %}
+		<!-- Loop through each seat in the current row -->
+		<td class="{{ 'reserved' if seat == 'Reserved' else 'available' }}">
+			<!-- Apply a class based on the seat status (Reserved or Available) -->
+			{{ seat }}
+			<!-- Display the seat status -->
+		</td>
+		{% endfor %}
+	</tr>
+	{% endfor %}
+</table>
+
+<h2>Total Sales</h2>
+<!-- Heading for the total sales section -->
+<p>Total sales for the flight: ${{ total_sales }}</p>
+<!-- Display the total sales amount -->
+
+<!-- Link back to the main menu -->
+<p><a href="/">Back to Main Menu</a></p>
 {% endblock %}
+<!-- End of the content block -->
