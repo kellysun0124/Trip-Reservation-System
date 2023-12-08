@@ -1,7 +1,3 @@
-# Trip-Reservation-System
-
-IT 4320 final project
-
 # Trip Reservation System
 
 This project implements a web-based trip reservation system using Flask, a popular web framework in Python. The system allows users to reserve seats, and administrators can log in to view and manage reservations.
@@ -13,31 +9,34 @@ This project implements a web-based trip reservation system using Flask, a popul
 - **Dynamic Seating Chart**: Visual representation of available and reserved seats.
 - **Responsive Design**: Web pages adapt to different screen sizes for better user experience.
 
+## Docker Setup
+
+- **Build and Run with Docker**:
+  ```bash
+  docker build -t trip-reservation-system .
+  docker run -p 5002:5002 trip-reservation-system
+  ```
+- **Docker Compose**:
+  ```bash
+  docker-compose up
+  ```
+  Access the application at `http://localhost:5002`.
+
 ## Installation
 
 1. **Clone the Repository**
-
    ```bash
    git clone https://github.com/your-username/your-repository-name.git
    ```
-
 2. **Install Dependencies**
-
-   Make sure you have Python installed. Then, install Flask:
-
    ```bash
-   pip install Flask
+   pip install -r requirements.txt
    ```
-
 3. **Run the Application**
-
    Navigate to the project directory and run:
-
    ```bash
-   python app.py
+   flask run
    ```
-
-   This will start the Flask server.
 
 ## Usage
 
