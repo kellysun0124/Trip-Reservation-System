@@ -3,20 +3,29 @@ import string
 
 def check_seat_availability(seat_row, seat_column):
     try:
-        # Open the reservations file to read current reservations
         with open("data_files/reservations.txt", "r") as file:
             for line in file:
-                # Split each line to extract reserved seat details
-                _, reserved_row, reserved_column, _ = line.strip().split(',')
-                # Check if the requested seat matches any reserved seat
-                if int(reserved_row) == seat_row and int(reserved_column) == seat_column:
-                    return False  # Seat is already reserved
+                # Skip blank lines
+                if line.strip() == "":
+                    continue
+
+                try:
+                    # Split each line to extract reserved seat details
+                    _, reserved_row, reserved_column, _ = line.strip().split(',')
+                    # Check if the requested seat matches any reserved seat
+                    if int(reserved_row) == seat_row and int(reserved_column) == seat_column:
+                        return False  # Seat is already reserved
+                except ValueError:
+                    # Handle lines that don't have the expected format
+                    continue
+
     except FileNotFoundError:
         # If the reservations file doesn't exist, assume all seats are available
         return True
     except Exception as e:
         # Print any other exceptions that might occur
         print(f"An error occurred: {e}")
+
     # Default return value, assuming the seat is available if no match is found
     return True
 
