@@ -20,20 +20,31 @@ def check_seat_availability(seat_row, seat_column):
     # Default return value, assuming the seat is available if no match is found
     return True
 
-def generate_reservation_code(first_name, last_name, seat_row, seat_column):
-    # Extract initials from the first and last name
-    initials = (first_name[0] + last_name[0]).upper()
+def generate_reservation_code(first_name, last_name, seat_row, seat_column, filename):
+    # Read existing codes from the file
+    try:
+        with open(filename, 'r') as file:
+            existing_codes = file.read().splitlines()
+    except FileNotFoundError:
+        existing_codes = []
 
-    # Convert seat row to a string with zero padding (if necessary)
-    seat_row_str = str(seat_row).zfill(2)
+    # Generate a unique reservation code
+    while True:
+        # Extract initials from the first and last name
+        initials = (first_name[0] + last_name[0]).upper()
 
-    # Generate a random string of 4 alphanumeric characters
-    random_part = ''.join(random.choices(string.ascii_uppercase + string.digits, k=4))
+        # Convert seat row to a string with zero padding (if necessary)
+        seat_row_str = str(seat_row).zfill(2)
 
-    # Combine initials, seat row, seat column, and random part to form a reservation code
-    reservation_code = f"{initials}{seat_row_str}{seat_column}{random_part}"
+        # Generate a random string of 4 alphanumeric characters
+        random_part = ''.join(random.choices(string.ascii_uppercase + string.digits, k=4))
 
-    return reservation_code
+        # Combine initials, seat row, seat column, and random part to form a reservation code
+        new_code = f"{initials}{seat_row_str}{seat_column}{random_part}"
+
+        # Check for uniqueness
+        if new_code not in existing_codes:
+            return new_code
 
 def calculate_cost(seat_row, seat_column):
     try:

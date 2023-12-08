@@ -109,7 +109,7 @@ def reserve_seat():
         # Check if the selected seat is available
         if check_seat_availability(seat_row, seat_column):
             # Generate a reservation code and calculate the cost
-            reservation_code = generate_reservation_code(first_name, last_name, seat_row, seat_column)
+            reservation_code = generate_reservation_code(first_name, last_name, seat_row, seat_column, "data_files/reservations.txt")
             cost = calculate_cost(seat_row, seat_column)
             # Save the reservation and display a success message
             save_reservation(first_name, last_name, seat_row, seat_column, reservation_code)
