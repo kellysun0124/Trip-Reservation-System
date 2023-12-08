@@ -146,7 +146,18 @@ def admin_dashboard():
 
     return render_template('admin-dashboard.html')
 
-#Below is just a template and might need to be modified to work.
+@app.route('/reserve_seat', methods=['POST'])
+def reserve_seat():
+    first_name = request.form.get('firstName')
+    last_name = request.form.get('lastName')
+    seat_row = request.form.get('seatRow')
+    seat_column = request.form.get('seatColumn')
+
+    # Add logic to process the reservation
+
+    return redirect(url_for('main_menu', message='Reservation Successful!'))
+
+#Below is justy a template and might need to be modified to work.
 # @app.route('/create/', methods=('GET', 'POST'))
 # def create():
 
